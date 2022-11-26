@@ -1,8 +1,12 @@
-const CLIENT_ID = "7c39e87340174e8c80b29cafcb5b357b";
-const APP_URL = "http://localhost:3000";
+import { ACCESS_TOKEN, EXPIRES_IN, TOKEN_TYPE } from "../common";
 
+// const CLIENT_ID = "7c39e87340174e8c80b29cafcb5b357b";
+const APP_URL = import.meta.env.VITE_APP_URL;
+const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 const scope = "user-top-read user-follow-read playlist-read-private user-library-read";
-const REDIRECT_URI = `${APP_URL}/login/login.html`;
+const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
+
+// console.log('this is a local host ', CLIENT_ID);
 const ACCESS_TOKEN_KEY = "accessToken";
 
 
@@ -20,14 +24,14 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 window.setItemsInLocalStorage = ({ accessToken, tokenType, expireIn }) => {
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("tokenType", tokenType);
-    localStorage.setItem("expiresIn", expireIn);
-    console.log("done");
-    console.log(localStorage.accessToken)
+    localStorage.setItem(ACCESS_TOKEN, accessToken);
+    localStorage.setItem(TOKEN_TYPE, tokenType);
+    localStorage.setItem(EXPIRES_IN, expireIn);
+    // console.log("done");
+    // console.log(localStorage.accessToken)
 }
 window.addEventListener("load", () => {
-    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+    const accessToken = localStorage.getItem(ACCESS_TOKEN);
     if (accessToken) {
         window.location.href = `${APP_URL}/dashboard/dashboard.html`;
     }
@@ -46,8 +50,10 @@ window.addEventListener("load", () => {
         if (accessToken) {
             window.close();
             window.opener.setItemsInLocalStorage({accessToken, tokenType, expireIn});
+            // window.location.href = `${APP_URL}/dashboard/dashboard.html`;
         } else {
-            alert("error");
+            window.close();
         }
+
     }
 })

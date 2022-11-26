@@ -1,7 +1,7 @@
 import './style.css'
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("hello world")
+  // console.log("hello world")
   if (localStorage.getItem("accessToken")) {
     window.location.href = "dashboard/dashboard.html";
   } else {
