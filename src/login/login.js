@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, EXPIRES_IN, TOKEN_TYPE } from "../common";
+ import { ACCESS_TOKEN, EXPIRES_IN, TOKEN_TYPE } from "../common";
 
 // const CLIENT_ID = "7c39e87340174e8c80b29cafcb5b357b";
 const APP_URL = import.meta.env.VITE_APP_URL;
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 window.setItemsInLocalStorage = ({ accessToken, tokenType, expireIn }) => {
     localStorage.setItem(ACCESS_TOKEN, accessToken);
     localStorage.setItem(TOKEN_TYPE, tokenType);
-    localStorage.setItem(EXPIRES_IN, expireIn);
+    localStorage.setItem(EXPIRES_IN, (Date.now() + (expireIn * 1000)) );
     // console.log("done");
     // console.log(localStorage.accessToken)
 }
